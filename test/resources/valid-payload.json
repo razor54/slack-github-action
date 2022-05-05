@@ -1,6 +1,0 @@
-{
-  "oliver": "benji",
-  "bonny": "clyde",
-  "actor":"${{github.actor}}",
-  "env_name": "${{env.ENV_NAME}}"
-}
