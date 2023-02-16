@@ -7,7 +7,7 @@ jobs:
     steps:
     - name: Send GitHub trigger payload to Slack Workflow Builder
       id: slack
-      uses: slackapi/slack-github-action@v1.19.0
+      uses: slackapi/slack-github-action@v1.23.0
       with:
         channel-id: 'SLACK_CHANNEL_ID' # ID of Slack Channel you want to post to
         payload: |
@@ -31,9 +31,9 @@ jobs:
                     "type": "button",
                     "text": {
                       "type": "plain_text",
-                      "text": $values.button_text
+                      "text": "${{ github.sha }}"
                     },
-                    "url": $values.button_url
+                    "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                   }
                 ]
               }
@@ -42,6 +42,3 @@ jobs:
           }
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      values: |
-        button_text: ${{ github.sha }}
-        button_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
