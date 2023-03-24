@@ -39,8 +39,8 @@ module.exports = async function slackSend(core) {
       try {
         payload = await fs.readFile(path.resolve(payloadFilePath), 'utf-8');
         // parse github context variables
-        const context = { github: github.context };
-        const payloadString = payload.replace('$', '');
+        const context = { github: github.context, env: process.env };
+        const payloadString = payload.replace(/\$/g, '');
         payload = markup.up(payloadString, context);
       } catch (error) {
         // passed in payload file path was invalid
@@ -129,7 +129,6 @@ module.exports = async function slackSend(core) {
       } catch (err) {
         console.log('axios post failed, double check the payload being sent includes the keys Slack expects');
         console.log(payload);
-        // console.log(err);
 
         if (err.response) {
           core.setFailed(err.response.data);

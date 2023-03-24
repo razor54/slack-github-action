@@ -51,6 +51,7 @@ describe('slack-send', () => {
   describe('using a bot token', () => {
     beforeEach(() => {
       process.env.SLACK_BOT_TOKEN = 'xoxb-xxxxx';
+      process.env.ENV_NAME = 'test';
       delete process.env.SLACK_WEBHOOK_URL;
     });
     describe('happy path', () => {
@@ -104,6 +105,7 @@ describe('slack-send', () => {
         assert.equal(chatArgs.bonny, 'clyde', 'Correct message provided to postMessage');
         assert.equal(chatArgs.oliver, 'benji', 'Correct message provided to postMessage');
         assert.equal(chatArgs.actor, 'user123', 'Correct message provided to postMessage');
+        assert.equal(chatArgs.env_name, 'test', 'Correct message provided to postMessage');
       });
 
       it('should send the same message to multiple channels', async () => {
